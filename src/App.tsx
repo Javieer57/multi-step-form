@@ -3,14 +3,37 @@ import "./App.css";
 
 function App() {
   const [billing, setBilling] = useState("mo");
+  const [step, setStep] = useState("personal-info");
 
   return (
     <>
-      {/* <!-- Sidebar start --> */}
-      {/* Step 1 Your info Step 2 Select plan Step 3 Add-ons Step 4 Summary */}
-      {/* <!-- Sidebar end --> */}
+      <ul>
+        <li
+          style={{
+            textDecoration: step === "personal-info" ? "underline" : "none",
+          }}
+        >
+          Step 1 Your info{" "}
+        </li>
+        <li style={{ textDecoration: step === "plan" ? "underline" : "none" }}>
+          Step 2 Select plan{" "}
+        </li>
+        <li
+          style={{ textDecoration: step === "add-ons" ? "underline" : "none" }}
+        >
+          Step 3 Add-ons{" "}
+        </li>
+        <li
+          style={{ textDecoration: step === "resume" ? "underline" : "none" }}
+        >
+          Step 4 Summary
+        </li>
+      </ul>
 
-      <fieldset>
+      <fieldset
+        style={{ display: step === "personal-info" ? "block" : "none" }}
+        disabled={step !== "personal-info"}
+      >
         <legend>Personal info</legend>
 
         <p>Please provide your name, email address, and phone number.</p>
@@ -32,10 +55,15 @@ function App() {
           <input id="phone" type="text" placeholder="e.g. +1 234 567 890" />
         </div>
 
-        <button type="button">Next Step</button>
+        <button type="button" onClick={() => setStep("plan")}>
+          Next Step
+        </button>
       </fieldset>
 
-      <fieldset>
+      <fieldset
+        style={{ display: step === "plan" ? "block" : "none" }}
+        disabled={step !== "plan"}
+      >
         <legend>Select your plan</legend>
 
         <p>You have the option of monthly or yearly billing.</p>
@@ -72,11 +100,18 @@ function App() {
           />
         </div>
 
-        <button type="button">Go Back</button>
-        <button type="button">Next Step</button>
+        <button type="button" onClick={() => setStep("personal-info")}>
+          Go Back
+        </button>
+        <button type="button" onClick={() => setStep("add-ons")}>
+          Next Step
+        </button>
       </fieldset>
 
-      <fieldset>
+      <fieldset
+        style={{ display: step === "add-ons" ? "block" : "none" }}
+        disabled={step !== "add-ons"}
+      >
         <legend>Pick add-ons</legend>
         <p>Add-ons help enhance your gaming experience.</p>
 
@@ -118,19 +153,29 @@ function App() {
 
         <br />
 
-        <button type="button">Go Back</button>
-        <button type="button">Next Step</button>
+        <button type="button" onClick={() => setStep("plan")}>
+          Go Back
+        </button>
+        <button type="button" onClick={() => setStep("resume")}>
+          Next Step
+        </button>
       </fieldset>
 
-      <section>
+      <section style={{ display: step === "resume" ? "block" : "none" }}>
         <h2>Finishing up</h2>
         <p>Double-check everything looks OK before confirming.</p>
 
         <article>
           <header>
             <div>
-              <h3>Arcade (Monthly)</h3>
-              <button type="button">Change</button>
+              <h3>Arcade ({billing === "mo" ? "Monthly" : "Yearly"})</h3>
+              <button
+                type="button"
+                disabled={step !== "resume"}
+                onClick={() => setStep("plan")}
+              >
+                Change
+              </button>
             </div>
             <div>
               <strong>$9/{billing}</strong>
@@ -156,8 +201,16 @@ function App() {
           <span>+$12/{billing}</span>
         </div>
 
-        <button type="button">Go Back</button>
-        <button type="submit">Confirm</button>
+        <button
+          type="button"
+          disabled={step !== "resume"}
+          onClick={() => setStep("add-ons")}
+        >
+          Go Back
+        </button>
+        <button type="submit" disabled={step !== "resume"}>
+          Confirm
+        </button>
       </section>
 
       {/* <!-- Step 5 start --> */}
