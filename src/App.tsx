@@ -3,36 +3,44 @@ import "./App.css";
 
 function App() {
   const [billing, setBilling] = useState("mo");
-  const [step, setStep] = useState("personal-info");
+  const [step, setStep] = useState(1);
+
+  const nextStep = () => {
+    setStep((prev) => prev + 1);
+  };
+
+  const prevStep = () => {
+    setStep((prev) => prev - 1);
+  };
+
+  const jumpToStep = (step: number) => {
+    setStep(step);
+  };
 
   return (
     <>
       <ul>
         <li
           style={{
-            textDecoration: step === "personal-info" ? "underline" : "none",
+            textDecoration: step === 1 ? "underline" : "none",
           }}
         >
           Step 1 Your info{" "}
         </li>
-        <li style={{ textDecoration: step === "plan" ? "underline" : "none" }}>
-          Step 2 Select plan{" "}
+        <li style={{ textDecoration: step === 2 ? "underline" : "none" }}>
+          Step 2 Select plan
         </li>
-        <li
-          style={{ textDecoration: step === "add-ons" ? "underline" : "none" }}
-        >
-          Step 3 Add-ons{" "}
+        <li style={{ textDecoration: step === 3 ? "underline" : "none" }}>
+          Step 3 Add-ons
         </li>
-        <li
-          style={{ textDecoration: step === "resume" ? "underline" : "none" }}
-        >
+        <li style={{ textDecoration: step === 4 ? "underline" : "none" }}>
           Step 4 Summary
         </li>
       </ul>
 
       <fieldset
-        style={{ display: step === "personal-info" ? "block" : "none" }}
-        disabled={step !== "personal-info"}
+        style={{ display: step === 1 ? "block" : "none" }}
+        disabled={step !== 1}
       >
         <legend>Personal info</legend>
 
@@ -55,14 +63,14 @@ function App() {
           <input id="phone" type="text" placeholder="e.g. +1 234 567 890" />
         </div>
 
-        <button type="button" onClick={() => setStep("plan")}>
+        <button type="button" onClick={nextStep}>
           Next Step
         </button>
       </fieldset>
 
       <fieldset
-        style={{ display: step === "plan" ? "block" : "none" }}
-        disabled={step !== "plan"}
+        style={{ display: step === 2 ? "block" : "none" }}
+        disabled={step !== 2}
       >
         <legend>Select your plan</legend>
 
@@ -100,17 +108,17 @@ function App() {
           />
         </div>
 
-        <button type="button" onClick={() => setStep("personal-info")}>
+        <button type="button" onClick={prevStep}>
           Go Back
         </button>
-        <button type="button" onClick={() => setStep("add-ons")}>
+        <button type="button" onClick={nextStep}>
           Next Step
         </button>
       </fieldset>
 
       <fieldset
-        style={{ display: step === "add-ons" ? "block" : "none" }}
-        disabled={step !== "add-ons"}
+        style={{ display: step === 3 ? "block" : "none" }}
+        disabled={step !== 3}
       >
         <legend>Pick add-ons</legend>
         <p>Add-ons help enhance your gaming experience.</p>
@@ -153,15 +161,15 @@ function App() {
 
         <br />
 
-        <button type="button" onClick={() => setStep("plan")}>
+        <button type="button" onClick={prevStep}>
           Go Back
         </button>
-        <button type="button" onClick={() => setStep("resume")}>
+        <button type="button" onClick={nextStep}>
           Next Step
         </button>
       </fieldset>
 
-      <section style={{ display: step === "resume" ? "block" : "none" }}>
+      <section style={{ display: step === 4 ? "block" : "none" }}>
         <h2>Finishing up</h2>
         <p>Double-check everything looks OK before confirming.</p>
 
@@ -171,8 +179,8 @@ function App() {
               <h3>Arcade ({billing === "mo" ? "Monthly" : "Yearly"})</h3>
               <button
                 type="button"
-                disabled={step !== "resume"}
-                onClick={() => setStep("plan")}
+                disabled={step !== 4}
+                onClick={() => jumpToStep(2)}
               >
                 Change
               </button>
@@ -201,14 +209,10 @@ function App() {
           <span>+$12/{billing}</span>
         </div>
 
-        <button
-          type="button"
-          disabled={step !== "resume"}
-          onClick={() => setStep("add-ons")}
-        >
+        <button type="button" disabled={step !== 4} onClick={prevStep}>
           Go Back
         </button>
-        <button type="submit" disabled={step !== "resume"}>
+        <button type="submit" disabled={step !== 4}>
           Confirm
         </button>
       </section>
