@@ -1,14 +1,12 @@
 import { Formik, Form } from "formik";
-import { useContext } from "react";
-import { FormContext } from "./context/FormContext";
 import { PersonalInfo } from "./PersonalInfo";
 import { Resume } from "./Resume";
 import { SelectPlan } from "./SelectPlan";
 import { SelectAddon } from "./SelectAddon";
+import { useFormContext } from "./hooks/useFormContext";
 
 export const MultiStepForm = () => {
-  const { addonsInfo, billingAbbr, prevStep, jumpToStep, step } =
-    useContext(FormContext);
+  const { step } = useFormContext();
 
   const initialValues: {
     name: string;
@@ -51,7 +49,7 @@ export const MultiStepForm = () => {
         initialValues={initialValues}
         onSubmit={(values) => console.log(values)}
       >
-        {({ values }) => (
+        {() => (
           <Form>
             <PersonalInfo />
 
@@ -59,16 +57,7 @@ export const MultiStepForm = () => {
 
             <SelectAddon />
 
-            {step === 4 && (
-              <Resume
-                values={values}
-                step={step}
-                jumpToStep={jumpToStep}
-                billingAbbr={billingAbbr}
-                addonsInfo={addonsInfo}
-                prevStep={prevStep}
-              />
-            )}
+            {step === 4 && <Resume />}
           </Form>
         )}
       </Formik>

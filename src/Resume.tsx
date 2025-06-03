@@ -1,27 +1,10 @@
-import { useContext } from "react";
-import type { Addon } from "./types/addon";
-import type { Form } from "./types/form";
-import type { Plan } from "./types/plan";
-import { FormContext } from "./context/FormContext";
+import { useFormContext } from "./hooks/useFormContext";
+import { useFormikContext } from "formik";
 
-interface props {
-  values: Form;
-  step: number;
-  jumpToStep: (step: number) => void;
-  billingAbbr: { monthly: string; yearly: string };
-  addonsInfo: Addon[];
-  prevStep: () => void;
-}
-
-export const Resume = ({
-  addonsInfo,
-  billingAbbr,
-  jumpToStep,
-  prevStep,
-  step,
-  values,
-}: props) => {
-  const { plansInfo } = useContext(FormContext);
+export const Resume = () => {
+  const { plansInfo, addonsInfo, billingAbbr, jumpToStep, prevStep, step } =
+    useFormContext();
+  const { values } = useFormikContext();
   const selectedPlan = plansInfo.find((plan) => plan.id === values.plan);
   const selectedAddons = addonsInfo.filter((addon) =>
     values.addOn.includes(addon.id)

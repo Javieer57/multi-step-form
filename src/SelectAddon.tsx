@@ -1,10 +1,10 @@
 import { useFormikContext, Field } from "formik";
-import { useContext, Fragment } from "react";
-import { FormContext } from "./context/FormContext";
+import { Fragment } from "react";
+import { useFormContext } from "./hooks/useFormContext";
 
 export function SelectAddon() {
   const { addonsInfo, billingAbbr, nextStep, prevStep, step } =
-    useContext(FormContext);
+    useFormContext();
   const { values } = useFormikContext();
 
   return (
