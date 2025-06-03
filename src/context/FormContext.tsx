@@ -1,4 +1,11 @@
-import React, { createContext, useState, type PropsWithChildren } from "react";
+import React, {
+  createContext,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type PropsWithChildren,
+} from "react";
 import type { Plan } from "../types/plan";
 import type { Addon } from "../types/addon";
 import { PLANS } from "../data/plans";
@@ -26,17 +33,17 @@ export const FormContextProvider: React.FC<PropsWithChildren> = ({
 }) => {
   const [step, setStep] = useState(1);
 
-  const nextStep = () => {
+  const nextStep = useCallback(() => {
     setStep((prev) => prev + 1);
-  };
+  }, []);
 
-  const prevStep = () => {
+  const prevStep = useCallback(() => {
     setStep((prev) => prev - 1);
-  };
+  }, []);
 
-  const jumpToStep = (step: number) => {
+  const jumpToStep = useCallback((step: number) => {
     setStep(step);
-  };
+  }, []);
 
   const billingAbbr = {
     monthly: "mo",
