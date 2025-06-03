@@ -1,8 +1,6 @@
 import React, {
   createContext,
   useCallback,
-  useEffect,
-  useRef,
   useState,
   type PropsWithChildren,
 } from "react";
@@ -10,6 +8,8 @@ import type { Plan } from "../types/plan";
 import type { Addon } from "../types/addon";
 import { PLANS } from "../data/plans";
 import { ADDONS } from "../data/addons";
+
+type Step = 1 | 2 | 3 | 4;
 
 interface FormContextType {
   plansInfo: Plan[];
@@ -31,18 +31,26 @@ export const FormContext = createContext<FormContextType | undefined>(
 export const FormContextProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<Step>(1);
 
   const nextStep = useCallback(() => {
-    setStep((prev) => prev + 1);
+    setStep((prev) => {
+      if (prev < 4) return (prev + 1) as Step;
+      return prev;
+    });
   }, []);
 
   const prevStep = useCallback(() => {
-    setStep((prev) => prev - 1);
+    setStep((prev) => {
+      if (prev > 1) return (prev - 1) as Step;
+      return prev;
+    });
   }, []);
 
   const jumpToStep = useCallback((step: number) => {
-    setStep(step);
+    if (step >= 1 && step <= 4) {
+      setStep(step as Step);
+    }
   }, []);
 
   const billingAbbr = {
