@@ -4,18 +4,12 @@ import { Resume } from "./Resume";
 import { SelectPlan } from "./SelectPlan";
 import { SelectAddon } from "./SelectAddon";
 import { useFormContext } from "./hooks/useFormContext";
+import type { FormInitialValues } from "./types/form";
 
 export const MultiStepForm = () => {
   const { step } = useFormContext();
 
-  const initialValues: {
-    name: string;
-    address: string;
-    phone: string;
-    plan: string;
-    billing: "monthly" | "yearly";
-    addOn: string[];
-  } = {
+  const initialValues: FormInitialValues = {
     name: "",
     address: "",
     phone: "",

@@ -4,25 +4,9 @@ import React, {
   useState,
   type PropsWithChildren,
 } from "react";
-import type { Plan } from "../types/plan";
-import type { Addon } from "../types/addon";
 import { PLANS } from "../data/plans";
 import { ADDONS } from "../data/addons";
-
-type Step = 1 | 2 | 3 | 4;
-
-interface FormContextType {
-  plansInfo: Plan[];
-  step: number;
-  addonsInfo: Addon[];
-  billingAbbr: {
-    monthly: string;
-    yearly: string;
-  };
-  nextStep: () => void;
-  prevStep: () => void;
-  jumpToStep: (step: number) => void;
-}
+import type { FormContextType, Step } from "../types/form";
 
 export const FormContext = createContext<FormContextType | undefined>(
   undefined

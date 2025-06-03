@@ -1,9 +1,10 @@
 import { useFormikContext, Field } from "formik";
 import { useFormContext } from "./hooks/useFormContext";
+import type { FormInitialValues } from "./types/form";
 
 export function SelectPlan() {
   const { plansInfo, step, billingAbbr, nextStep, prevStep } = useFormContext();
-  const { values } = useFormikContext();
+  const { values } = useFormikContext<FormInitialValues>();
 
   return (
     <fieldset
