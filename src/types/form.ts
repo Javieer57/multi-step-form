@@ -12,7 +12,7 @@ export interface Form {
 
 export interface FormContextType {
   plansInfo: Plan[];
-  step: number;
+  step: Step;
   addonsInfo: Addon[];
   billingAbbr: {
     monthly: string;
