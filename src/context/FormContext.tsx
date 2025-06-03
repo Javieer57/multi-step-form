@@ -4,10 +4,6 @@ import type { Addon } from "../types/addon";
 import { PLANS } from "../data/plans";
 import { ADDONS } from "../data/addons";
 
-const throwError = (name: string) => () => {
-  throw new Error(`${name} function must be used within a FormContextProvider`);
-};
-
 interface FormContextType {
   plansInfo: Plan[];
   step: number;
@@ -21,18 +17,9 @@ interface FormContextType {
   jumpToStep: (step: number) => void;
 }
 
-export const FormContext = createContext<FormContextType>({
-  step: 1,
-  addonsInfo: [],
-  plansInfo: [],
-  billingAbbr: {
-    monthly: "mo",
-    yearly: "yr",
-  },
-  nextStep: throwError("nextStep"),
-  prevStep: throwError("prevStep"),
-  jumpToStep: throwError("jumpToStep"),
-});
+export const FormContext = createContext<FormContextType | undefined>(
+  undefined
+);
 
 export const FormContextProvider: React.FC<PropsWithChildren> = ({
   children,

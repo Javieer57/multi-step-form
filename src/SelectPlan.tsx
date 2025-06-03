@@ -1,10 +1,8 @@
 import { useFormikContext, Field } from "formik";
-import { useContext } from "react";
-import { FormContext } from "./context/FormContext";
+import { useFormContext } from "./hooks/useFormContext";
 
 export function SelectPlan() {
-  const { plansInfo, step, billingAbbr, nextStep, prevStep } =
-    useContext(FormContext);
+  const { plansInfo, step, billingAbbr, nextStep, prevStep } = useFormContext();
   const { values } = useFormikContext();
 
   return (
