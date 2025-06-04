@@ -3,14 +3,11 @@ import { useFormContext } from "./hooks/useFormContext";
 import type { FormInitialValues } from "./types/form";
 
 export function SelectPlan() {
-  const { plansInfo, step, billingAbbr, nextStep, prevStep } = useFormContext();
+  const { plansInfo, billingAbbr, nextStep, prevStep } = useFormContext();
   const { values } = useFormikContext<FormInitialValues>();
 
   return (
-    <fieldset
-      // style={{ display: step === 2 ? "block" : "none" }}
-      disabled={step !== 2}
-    >
+    <fieldset>
       <legend>Select your plan</legend>
 
       <p>You have the option of monthly or yearly billing.</p>

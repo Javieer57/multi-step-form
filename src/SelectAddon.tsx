@@ -4,15 +4,11 @@ import { useFormContext } from "./hooks/useFormContext";
 import type { FormInitialValues } from "./types/form";
 
 export function SelectAddon() {
-  const { addonsInfo, billingAbbr, nextStep, prevStep, step } =
-    useFormContext();
+  const { addonsInfo, billingAbbr, nextStep, prevStep } = useFormContext();
   const { values } = useFormikContext<FormInitialValues>();
 
   return (
-    <fieldset
-      // style={{ display: step === 3 ? "block" : "none" }}
-      disabled={step !== 3}
-    >
+    <fieldset>
       <legend>Pick add-ons</legend>
       <p>Add-ons help enhance your gaming experience.</p>
 

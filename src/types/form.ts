@@ -23,7 +23,7 @@ export interface FormContextType {
   jumpToStep: (step: number) => void;
 }
 
-export type Step = 1 | 2 | 3 | 4;
+export type Step = 1 | 2 | 3 | 4 | 5;
 
 export interface FormInitialValues {
   name: string;

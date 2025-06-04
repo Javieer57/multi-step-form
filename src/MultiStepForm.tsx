@@ -5,6 +5,7 @@ import { SelectPlan } from "./SelectPlan";
 import { SelectAddon } from "./SelectAddon";
 import { useFormContext } from "./hooks/useFormContext";
 import type { FormInitialValues } from "./types/form";
+import { Success } from "./Success";
 
 export const MultiStepForm = () => {
   const { step } = useFormContext();
@@ -45,22 +46,15 @@ export const MultiStepForm = () => {
       >
         {() => (
           <Form>
-            <PersonalInfo />
-
-            <SelectPlan />
-
-            <SelectAddon />
-
+            {step === 1 && <PersonalInfo />}
+            {step === 2 && <SelectPlan />}
+            {step === 3 && <SelectAddon />}
             {step === 4 && <Resume />}
+            {step === 5 && <Success />}
           </Form>
         )}
       </Formik>
 
-      {/* <!-- Step 5 start --> */}
-      {/* Thank you! Thanks for confirming your subscription! We hope you have fun
-            using our platform. If you ever need support, please feel free to email us
-            at support@loremgaming.com. */}
-      {/* <!-- Step 5 end --> */}
       {/* <div className="attribution">
               Challenge by
               <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">

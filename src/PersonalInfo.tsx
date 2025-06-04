@@ -2,13 +2,10 @@ import { Field } from "formik";
 import { useFormContext } from "./hooks/useFormContext";
 
 export const PersonalInfo = () => {
-  const { step, nextStep } = useFormContext();
+  const { nextStep } = useFormContext();
 
   return (
-    <fieldset
-      // style={{ display: step === 1 ? "block" : "none" }}
-      disabled={step !== 1}
-    >
+    <fieldset>
       <legend>Personal info</legend>
 
       <p>Please provide your name, email address, and phone number.</p>
