@@ -1,10 +1,10 @@
-import { useFormContext } from "./hooks/useFormContext";
+import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import { useFormikContext } from "formik";
 import type { FormInitialValues } from "./types/form";
 
 export const Resume = () => {
   const { plansInfo, addonsInfo, billingAbbr, jumpToStep, prevStep, step } =
-    useFormContext();
+    useMultiStepFormContext();
   const { values } = useFormikContext<FormInitialValues>();
   const selectedPlan = plansInfo.find((plan) => plan.id === values.plan);
   const selectedAddons = addonsInfo.filter((addon) =>

@@ -3,12 +3,12 @@ import { PersonalInfo } from "./PersonalInfo";
 import { Resume } from "./Resume";
 import { SelectPlan } from "./SelectPlan";
 import { SelectAddon } from "./SelectAddon";
-import { useFormContext } from "./hooks/useFormContext";
+import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import type { FormInitialValues } from "./types/form";
 import { Success } from "./Success";
 
 export const MultiStepForm = () => {
-  const { step } = useFormContext();
+  const { step } = useMultiStepFormContext();
 
   const initialValues: FormInitialValues = {
     name: "",

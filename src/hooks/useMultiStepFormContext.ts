@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FormContext } from "../context/FormContext";
 
-export const useFormContext = () => {
+export const useMultiStepFormContext = () => {
   const context = useContext(FormContext);
 
   if (!context) {

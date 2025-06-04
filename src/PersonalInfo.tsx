@@ -1,8 +1,8 @@
 import { Field } from "formik";
-import { useFormContext } from "./hooks/useFormContext";
+import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 
 export const PersonalInfo = () => {
-  const { nextStep } = useFormContext();
+  const { nextStep } = useMultiStepFormContext();
 
   return (
     <fieldset>

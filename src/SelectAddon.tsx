@@ -1,10 +1,11 @@
 import { useFormikContext, Field } from "formik";
 import { Fragment } from "react";
-import { useFormContext } from "./hooks/useFormContext";
+import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import type { FormInitialValues } from "./types/form";
 
 export function SelectAddon() {
-  const { addonsInfo, billingAbbr, nextStep, prevStep } = useFormContext();
+  const { addonsInfo, billingAbbr, nextStep, prevStep } =
+    useMultiStepFormContext();
   const { values } = useFormikContext<FormInitialValues>();
 
   return (
