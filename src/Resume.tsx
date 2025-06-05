@@ -1,15 +1,21 @@
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
-import { useFormikContext } from "formik";
 import type { FormInitialValues } from "./types/form";
+import { useFormContext } from "react-hook-form";
 
 export const Resume = () => {
   const { plansInfo, addonsInfo, billingAbbr, jumpToStep, prevStep, step } =
     useMultiStepFormContext();
-  const { values } = useFormikContext<FormInitialValues>();
-  const selectedPlan = plansInfo.find((plan) => plan.id === values.plan);
-  const selectedAddons = addonsInfo.filter((addon) =>
-    values.addOn.includes(addon.id)
+  const { getValues } = useFormContext<FormInitialValues>();
+  const [plan, addOns, billing] = getValues(["plan", "addOn", "billing"]);
+
+  const selectedPlan = plansInfo.find((item) => item.id === plan);
+  const selectedAddons = addonsInfo.filter((item) => addOns.includes(item.id));
+  const planPrice = selectedPlan?.price[billing] ?? 0;
+  const addonsTotal = selectedAddons.reduce(
+    (total, item) => total + (item.price[billing] ?? 0),
+    0
   );
+  const resumeTotal = planPrice + addonsTotal;
 
   return (
     <section>
@@ -20,7 +26,7 @@ export const Resume = () => {
         <header>
           <div>
             <h3>
-              {selectedPlan?.name} ({values.billing})
+              {selectedPlan?.name} ({billing})
             </h3>
             <button
               type="button"
@@ -32,8 +38,7 @@ export const Resume = () => {
           </div>
           <div>
             <strong>
-              ${selectedPlan?.price[values.billing]}/
-              {billingAbbr[values.billing]}
+              ${selectedPlan?.price[billing]}/{billingAbbr[billing]}
             </strong>
           </div>
         </header>
@@ -46,7 +51,7 @@ export const Resume = () => {
               <span>{addon.name}</span>{" "}
               <span>
                 +$
-                {addon.price[values.billing]}/{billingAbbr[values.billing]}
+                {addon.price[billing]}/{billingAbbr[billing]}
               </span>
             </li>
           ))}
@@ -55,7 +60,9 @@ export const Resume = () => {
 
       <div>
         <span>Total (per month)</span>
-        <span>+$12/{billingAbbr[values.billing]}</span>
+        <span>
+          +${resumeTotal}/{billingAbbr[billing]}
+        </span>
       </div>
 
       <button type="button" disabled={step !== 4} onClick={prevStep}>

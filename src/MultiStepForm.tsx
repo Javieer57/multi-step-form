@@ -1,4 +1,3 @@
-import { Formik, Form } from "formik";
 import { PersonalInfo } from "./PersonalInfo";
 import { Resume } from "./Resume";
 import { SelectPlan } from "./SelectPlan";
@@ -6,18 +5,23 @@ import { SelectAddon } from "./SelectAddon";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import type { FormInitialValues } from "./types/form";
 import { Success } from "./Success";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
 export const MultiStepForm = () => {
+  const methods = useForm<FormInitialValues>({
+    defaultValues: {
+      name: "",
+      address: "",
+      phone: "",
+      plan: "",
+      billing: "monthly",
+      addOn: [],
+    },
+  });
   const { step } = useMultiStepFormContext();
 
-  const initialValues: FormInitialValues = {
-    name: "",
-    address: "",
-    phone: "",
-    plan: "",
-    billing: "monthly",
-    addOn: [],
-  };
+  const onSubmit: SubmitHandler<FormInitialValues> = (data) =>
+    console.log(data);
 
   return (
     <>
@@ -40,28 +44,15 @@ export const MultiStepForm = () => {
         </li>
       </ul>
 
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values) => console.log(values)}
-      >
-        {() => (
-          <Form>
-            {step === 1 && <PersonalInfo />}
-            {step === 2 && <SelectPlan />}
-            {step === 3 && <SelectAddon />}
-            {step === 4 && <Resume />}
-            {step === 5 && <Success />}
-          </Form>
-        )}
-      </Formik>
-
-      {/* <div className="attribution">
-              Challenge by
-              <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">
-                Frontend Mentor
-              </a>
-              . Coded by <a href="#">Your Name Here</a>.
-            </div> */}
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)}>
+          {step === 1 && <PersonalInfo />}
+          {step === 2 && <SelectPlan />}
+          {step === 3 && <SelectAddon />}
+          {step === 4 && <Resume />}
+          {step === 5 && <Success />}
+        </form>
+      </FormProvider>
     </>
   );
 };

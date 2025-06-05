@@ -1,8 +1,10 @@
-import { Field } from "formik";
+import { useFormContext } from "react-hook-form";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
+import type { FormInitialValues } from "./types/form";
 
 export const PersonalInfo = () => {
   const { nextStep } = useMultiStepFormContext();
+  const { register } = useFormContext<FormInitialValues>();
 
   return (
     <fieldset>
@@ -12,29 +14,29 @@ export const PersonalInfo = () => {
 
       <div>
         <label htmlFor="name">Name</label>
-        <Field
+        <input
           id="name"
           type="text"
-          name="name"
           placeholder="e.g. Stephen King Email"
+          {...register("name")}
         />
       </div>
       <div>
         <label htmlFor="address">Address</label>
-        <Field
+        <input
           id="address"
-          name="address"
           type="email"
           placeholder="e.g. stephenking@lorem.com"
+          {...register("address")}
         />
       </div>
       <div>
         <label htmlFor="phone">Phone Number</label>
-        <Field
+        <input
           id="phone"
-          name="phone"
           type="tel"
           placeholder="e.g. +1 234 567 890"
+          {...register("phone")}
         />
       </div>
 
