@@ -1,21 +1,16 @@
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
-import type { FormInitialValues } from "./types/form";
-import { useFormContext } from "react-hook-form";
+import { useResumeSummary } from "./hooks/useResumeSummary";
 
 export const Resume = () => {
-  const { plansInfo, addonsInfo, billingAbbr, jumpToStep, prevStep, step } =
-    useMultiStepFormContext();
-  const { getValues } = useFormContext<FormInitialValues>();
-  const [plan, addOns, billing] = getValues(["plan", "addOn", "billing"]);
-
-  const selectedPlan = plansInfo.find((item) => item.id === plan);
-  const selectedAddons = addonsInfo.filter((item) => addOns.includes(item.id));
-  const planPrice = selectedPlan?.price[billing] ?? 0;
-  const addonsTotal = selectedAddons.reduce(
-    (total, item) => total + (item.price[billing] ?? 0),
-    0
-  );
-  const resumeTotal = planPrice + addonsTotal;
+  const { jumpToStep, prevStep, step } = useMultiStepFormContext();
+  const {
+    selectedPlan,
+    selectedAddons,
+    billing,
+    billingAbbr,
+    planPrice,
+    resumeTotal,
+  } = useResumeSummary();
 
   return (
     <section>
@@ -37,9 +32,7 @@ export const Resume = () => {
             </button>
           </div>
           <div>
-            <strong>
-              ${selectedPlan?.price[billing]}/{billingAbbr[billing]}
-            </strong>
+            <strong>${planPrice}</strong>
           </div>
         </header>
 
