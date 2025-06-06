@@ -28,7 +28,7 @@ export const PersonalInfo = () => {
           type="text"
           placeholder="e.g. Stephen King Email"
           {...register("name", {
-            required: "Name is required",
+            required: "The field is required",
             minLength: {
               value: 3,
               message: "Name must be at least 3 characters",
@@ -44,7 +44,7 @@ export const PersonalInfo = () => {
           type="email"
           placeholder="e.g. stephenking@lorem.com"
           {...register("address", {
-            required: "Name is required",
+            required: "The field is required",
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
               message: "Invalid email address",
@@ -60,7 +60,7 @@ export const PersonalInfo = () => {
           type="tel"
           placeholder="e.g. +1 234 567 890"
           {...register("phone", {
-            required: "Phone is required",
+            required: "The field is required",
             minLength: {
               value: 10,
               message: "Phone number must be at least 10 characters",
