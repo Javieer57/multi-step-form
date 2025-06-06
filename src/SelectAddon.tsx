@@ -2,10 +2,11 @@ import { Fragment } from "react";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import type { Form } from "./types/form";
 import { useFormContext, useWatch } from "react-hook-form";
+import { useStepNavigation } from "./hooks/useStepNavigation";
 
 export function SelectAddon() {
-  const { addonsInfo, billingAbbr, nextStep, prevStep } =
-    useMultiStepFormContext();
+  const { handleNextStep } = useStepNavigation();
+  const { addonsInfo, billingAbbr, prevStep } = useMultiStepFormContext();
   const { register, control } = useFormContext<Form>();
   const billing = useWatch({
     control,
@@ -38,7 +39,7 @@ export function SelectAddon() {
       <button type="button" onClick={prevStep}>
         Go Back
       </button>
-      <button type="button" onClick={nextStep}>
+      <button type="button" onClick={handleNextStep}>
         Next Step
       </button>
     </fieldset>

@@ -1,19 +1,13 @@
 import { useFormContext } from "react-hook-form";
-import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import type { Form } from "./types/form";
+import { useStepNavigation } from "./hooks/useStepNavigation";
 
 export const PersonalInfo = () => {
-  const { nextStep } = useMultiStepFormContext();
+  const { handleNextStep } = useStepNavigation();
   const {
     register,
-    trigger,
     formState: { errors },
   } = useFormContext<Form>();
-
-  const handleNextStep = async () => {
-    const isStepValid = await trigger(["name", "address", "phone"]);
-    if (isStepValid) nextStep();
-  };
 
   return (
     <fieldset>
@@ -58,7 +52,6 @@ export const PersonalInfo = () => {
         <input
           id="phone"
           type="text"
-          pattern="/^[0-9()+\s-]+$/"
           inputMode="numeric"
           onKeyDown={(e) => {
             const allowedKeys = [

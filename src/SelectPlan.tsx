@@ -1,13 +1,13 @@
 import { useFormContext, useWatch } from "react-hook-form";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import type { Form } from "./types/form";
+import { useStepNavigation } from "./hooks/useStepNavigation";
 
 export function SelectPlan() {
-  const { plansInfo, billingAbbr, nextStep, prevStep } =
-    useMultiStepFormContext();
+  const { handleNextStep } = useStepNavigation();
+  const { plansInfo, billingAbbr, prevStep } = useMultiStepFormContext();
   const {
     register,
-    trigger,
     control,
     formState: { errors },
   } = useFormContext<Form>();
@@ -16,11 +16,6 @@ export function SelectPlan() {
     control,
     name: "billing",
   });
-
-  const handleNextStep = async () => {
-    const isStepValid = await trigger(["plan", "billing"]);
-    if (isStepValid) nextStep();
-  };
 
   return (
     <fieldset>
