@@ -5,12 +5,22 @@ import type { Form } from "./types/form";
 export function SelectPlan() {
   const { plansInfo, billingAbbr, nextStep, prevStep } =
     useMultiStepFormContext();
-  const { register, control } = useFormContext<Form>();
+  const {
+    register,
+    trigger,
+    control,
+    formState: { errors },
+  } = useFormContext<Form>();
 
   const billing = useWatch({
     control,
     name: "billing",
   });
+
+  const handleNextStep = async () => {
+    const isStepValid = await trigger(["plan", "billing"]);
+    if (isStepValid) nextStep();
+  };
 
   return (
     <fieldset>
@@ -27,10 +37,14 @@ export function SelectPlan() {
             type="radio"
             value={plan.id}
             id={plan.id}
-            {...register("plan")}
+            {...register("plan", {
+              required: "Select a plan",
+            })}
           />
         </div>
       ))}
+
+      {errors.plan && <p>{errors.plan.message}</p>}
 
       <div>
         <label htmlFor="monthly">Monthly</label>
@@ -53,7 +67,7 @@ export function SelectPlan() {
       <button type="button" onClick={prevStep}>
         Go Back
       </button>
-      <button type="button" onClick={nextStep}>
+      <button type="button" onClick={handleNextStep}>
         Next Step
       </button>
     </fieldset>
