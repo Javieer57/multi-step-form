@@ -28,10 +28,11 @@ export function SelectPlan() {
 
       <p>You have the option of monthly or yearly billing.</p>
 
-      {plansInfo.map((plan: any) => (
+      {plansInfo.map((plan) => (
         <div key={plan.id}>
           <label htmlFor={plan.id}>
-            {plan.name} ${plan.price[billing]}/{billingAbbr[billing]}
+            {plan.name} ${plan.price[billing]}/{billingAbbr[billing]}{" "}
+            {billing === "yearly" && plan.yearlyBenefit}
           </label>
           <input
             type="radio"
