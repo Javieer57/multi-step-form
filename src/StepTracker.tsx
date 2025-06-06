@@ -1,6 +1,8 @@
-import type { Step } from "./types/form";
+import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 
-export const StepTracker = ({ step }: { step: Step }) => {
+export const StepTracker = () => {
+  const { step } = useMultiStepFormContext();
+
   return (
     <ul>
       <li

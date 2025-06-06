@@ -4,11 +4,11 @@ import { FormContent } from "./FormContent";
 import { Success } from "./Success";
 
 export const MultiStepForm = () => {
-  const { step, isSubmitted } = useMultiStepFormContext();
+  const { isSubmitted } = useMultiStepFormContext();
 
   return (
     <>
-      <StepTracker step={step} />
+      <StepTracker />
 
       {!isSubmitted ? <FormContent /> : <Success />}
     </>
