@@ -57,7 +57,22 @@ export const PersonalInfo = () => {
         <label htmlFor="phone">Phone Number</label>
         <input
           id="phone"
-          type="tel"
+          type="text"
+          pattern="/^[0-9()+\s-]+$/"
+          inputMode="numeric"
+          onKeyDown={(e) => {
+            const allowedKeys = [
+              "Backspace",
+              "Delete",
+              "ArrowLeft",
+              "ArrowRight",
+              "Tab",
+            ];
+            const isNumber = /^[0-9()+\s-]+$/.test(e.key);
+            if (!isNumber && !allowedKeys.includes(e.key)) {
+              e.preventDefault();
+            }
+          }}
           placeholder="e.g. +1 234 567 890"
           {...register("phone", {
             required: "The field is required",
