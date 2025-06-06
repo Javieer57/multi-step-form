@@ -4,11 +4,10 @@ import { PersonalInfo } from "./PersonalInfo";
 import { Resume } from "./Resume";
 import { SelectAddon } from "./SelectAddon";
 import { SelectPlan } from "./SelectPlan";
-import { Success } from "./Success";
 import type { Form } from "./types/form";
 
 export const FormContent = () => {
-  const { step, isSubmitted, onSubmit } = useMultiStepFormContext();
+  const { step, onSubmit } = useMultiStepFormContext();
 
   const methods = useForm<Form>({
     defaultValues: {
@@ -21,14 +20,17 @@ export const FormContent = () => {
     },
   });
 
+  const stepComponents = {
+    1: <PersonalInfo />,
+    2: <SelectPlan />,
+    3: <SelectAddon />,
+    4: <Resume />,
+  };
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {step === 1 && <PersonalInfo />}
-        {step === 2 && <SelectPlan />}
-        {step === 3 && <SelectAddon />}
-        {step === 4 && <Resume />}
-        {isSubmitted && <Success />}
+        {stepComponents[step]}
       </form>
     </FormProvider>
   );
