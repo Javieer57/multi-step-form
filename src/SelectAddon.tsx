@@ -1,14 +1,12 @@
-import { useFormikContext, Field } from "formik";
 import { Fragment } from "react";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
-import type { FormInitialValues } from "./types/form";
+import type { Form } from "./types/form";
 import { useFormContext, useWatch } from "react-hook-form";
 
 export function SelectAddon() {
   const { addonsInfo, billingAbbr, nextStep, prevStep } =
     useMultiStepFormContext();
-  // const { values } = useFormikContext<FormInitialValues>();
-  const { register, control } = useFormContext<FormInitialValues>();
+  const { register, control } = useFormContext<Form>();
   const billing = useWatch({
     control,
     name: "billing",

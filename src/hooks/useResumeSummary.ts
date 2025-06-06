@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form";
 import { useMultiStepFormContext } from "./useMultiStepFormContext";
-import type { FormInitialValues } from "../types/form";
+import type { Form } from "../types/form";
 
 export function useResumeSummary() {
-  const { getValues } = useFormContext<FormInitialValues>();
+  const { getValues } = useFormContext<Form>();
   const { plansInfo, addonsInfo, billingAbbr } = useMultiStepFormContext();
 
   const [planId, addOn, billing] = getValues(["plan", "addOn", "billing"]);

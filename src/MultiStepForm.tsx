@@ -3,12 +3,12 @@ import { Resume } from "./Resume";
 import { SelectPlan } from "./SelectPlan";
 import { SelectAddon } from "./SelectAddon";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
-import type { FormInitialValues } from "./types/form";
+import type { Form } from "./types/form";
 import { Success } from "./Success";
-import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 
 export const MultiStepForm = () => {
-  const methods = useForm<FormInitialValues>({
+  const methods = useForm<Form>({
     defaultValues: {
       name: "",
       address: "",
@@ -18,10 +18,7 @@ export const MultiStepForm = () => {
       addOn: [],
     },
   });
-  const { step } = useMultiStepFormContext();
-
-  const onSubmit: SubmitHandler<FormInitialValues> = (data) =>
-    console.log(data);
+  const { step, isSubmitted, onSubmit } = useMultiStepFormContext();
 
   return (
     <>
@@ -50,7 +47,7 @@ export const MultiStepForm = () => {
           {step === 2 && <SelectPlan />}
           {step === 3 && <SelectAddon />}
           {step === 4 && <Resume />}
-          {step === 5 && <Success />}
+          {isSubmitted && <Success />}
         </form>
       </FormProvider>
     </>

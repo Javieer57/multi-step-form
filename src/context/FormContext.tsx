@@ -6,7 +6,8 @@ import React, {
 } from "react";
 import { PLANS } from "../data/plans";
 import { ADDONS } from "../data/addons";
-import type { FormContextType, Step } from "../types/form";
+import type { Form, FormContextType, Step } from "../types/form";
+import type { SubmitHandler } from "react-hook-form";
 
 export const FormContext = createContext<FormContextType | undefined>(
   undefined
@@ -16,6 +17,7 @@ export const FormContextProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
   const [step, setStep] = useState<Step>(1);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const nextStep = useCallback(() => {
     setStep((prev) => {
@@ -42,6 +44,20 @@ export const FormContextProvider: React.FC<PropsWithChildren> = ({
     yearly: "yr",
   };
 
+  const stepFields: Record<Step, (keyof Form)[]> = {
+    1: ["name", "address", "phone"],
+    2: ["plan", "billing"],
+    3: ["addOn"],
+    4: [],
+  };
+
+  const currentStepFields = stepFields[step];
+
+  const onSubmit: SubmitHandler<Form> = useCallback((data) => {
+    console.log("🚀 ~ handleSubmit ~ data:", data);
+    setIsSubmitted(true);
+  }, []);
+
   return (
     <FormContext.Provider
       value={{
@@ -49,6 +65,9 @@ export const FormContextProvider: React.FC<PropsWithChildren> = ({
         plansInfo: PLANS,
         addonsInfo: ADDONS,
         billingAbbr,
+        currentStepFields,
+        isSubmitted,
+        onSubmit,
         nextStep,
         prevStep,
         jumpToStep,

@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
-import type { FormInitialValues } from "./types/form";
+import type { Form } from "./types/form";
 
 export const PersonalInfo = () => {
   const { nextStep } = useMultiStepFormContext();
@@ -8,7 +8,7 @@ export const PersonalInfo = () => {
     register,
     trigger,
     formState: { errors },
-  } = useFormContext<FormInitialValues>();
+  } = useFormContext<Form>();
 
   const handleNextStep = async () => {
     const isStepValid = await trigger(["name", "address", "phone"]);

@@ -1,11 +1,11 @@
 import { useFormContext, useWatch } from "react-hook-form";
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
-import type { FormInitialValues } from "./types/form";
+import type { Form } from "./types/form";
 
 export function SelectPlan() {
   const { plansInfo, billingAbbr, nextStep, prevStep } =
     useMultiStepFormContext();
-  const { register, control } = useFormContext<FormInitialValues>();
+  const { register, control } = useFormContext<Form>();
 
   const billing = useWatch({
     control,
