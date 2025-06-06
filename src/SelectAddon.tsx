@@ -5,8 +5,8 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { useStepNavigation } from "./hooks/useStepNavigation";
 
 export function SelectAddon() {
-  const { handleNextStep } = useStepNavigation();
-  const { addonsInfo, billingAbbr, prevStep } = useMultiStepFormContext();
+  const { handleNextStep, prevStep } = useStepNavigation();
+  const { addonsInfo, billingAbbr } = useMultiStepFormContext();
   const { register, control } = useFormContext<Form>();
   const billing = useWatch({
     control,

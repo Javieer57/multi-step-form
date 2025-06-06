@@ -19,25 +19,25 @@ export const FormContextProvider: React.FC<PropsWithChildren> = ({
   const [step, setStep] = useState<Step>(1);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
-  const nextStep = useCallback(() => {
-    setStep((prev) => {
-      if (prev < 4) return (prev + 1) as Step;
-      return prev;
-    });
-  }, []);
+  // const nextStep = useCallback(() => {
+  //   setStep((prev) => {
+  //     if (prev < 4) return (prev + 1) as Step;
+  //     return prev;
+  //   });
+  // }, []);
 
-  const prevStep = useCallback(() => {
-    setStep((prev) => {
-      if (prev > 1) return (prev - 1) as Step;
-      return prev;
-    });
-  }, []);
+  // const prevStep = useCallback(() => {
+  //   setStep((prev) => {
+  //     if (prev > 1) return (prev - 1) as Step;
+  //     return prev;
+  //   });
+  // }, []);
 
-  const jumpToStep = useCallback((step: number) => {
-    if (step >= 1 && step <= 4) {
-      setStep(step as Step);
-    }
-  }, []);
+  // const jumpToStep = useCallback((step: number) => {
+  //   if (step >= 1 && step <= 4) {
+  //     setStep(step as Step);
+  //   }
+  // }, []);
 
   const billingAbbr = {
     monthly: "mo",
@@ -67,10 +67,11 @@ export const FormContextProvider: React.FC<PropsWithChildren> = ({
         billingAbbr,
         currentStepFields,
         isSubmitted,
+        setStep,
         onSubmit,
-        nextStep,
-        prevStep,
-        jumpToStep,
+        // nextStep,
+        // prevStep,
+        // jumpToStep,
       }}
     >
       {children}

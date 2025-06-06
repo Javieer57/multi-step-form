@@ -4,8 +4,8 @@ import type { Form } from "./types/form";
 import { useStepNavigation } from "./hooks/useStepNavigation";
 
 export function SelectPlan() {
-  const { handleNextStep } = useStepNavigation();
-  const { plansInfo, billingAbbr, prevStep } = useMultiStepFormContext();
+  const { handleNextStep, prevStep } = useStepNavigation();
+  const { plansInfo, billingAbbr } = useMultiStepFormContext();
   const {
     register,
     control,

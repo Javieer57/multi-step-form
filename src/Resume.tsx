@@ -1,8 +1,10 @@
 import { useMultiStepFormContext } from "./hooks/useMultiStepFormContext";
 import { useResumeSummary } from "./hooks/useResumeSummary";
+import { useStepNavigation } from "./hooks/useStepNavigation";
 
 export const Resume = () => {
-  const { jumpToStep, prevStep, step } = useMultiStepFormContext();
+  const { step } = useMultiStepFormContext();
+  const { jumpToStep, prevStep } = useStepNavigation();
   const {
     selectedPlan,
     selectedAddons,

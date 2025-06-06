@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 import type { Addon } from "./addon";
 import type { Plan } from "./plan";
 
@@ -21,9 +22,10 @@ export interface FormContextType {
   currentStepFields: (keyof Form)[];
   isSubmitted: boolean;
   onSubmit: (data: Form) => void;
-  nextStep: () => void;
-  prevStep: () => void;
-  jumpToStep: (step: number) => void;
+  setStep: Dispatch<SetStateAction<Step>>;
+  // nextStep: () => void;
+  // prevStep: () => void;
+  // jumpToStep: (step: number) => void;
 }
 
 export type Step = 1 | 2 | 3 | 4;
