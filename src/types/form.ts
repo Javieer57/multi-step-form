@@ -19,13 +19,9 @@ export interface FormContextType {
     monthly: string;
     yearly: string;
   };
-  currentStepFields: (keyof Form)[];
   isSubmitted: boolean;
   onSubmit: (data: Form) => void;
   setStep: Dispatch<SetStateAction<Step>>;
-  // nextStep: () => void;
-  // prevStep: () => void;
-  // jumpToStep: (step: number) => void;
 }
 
 export type Step = 1 | 2 | 3 | 4;

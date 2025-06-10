@@ -5,10 +5,17 @@ import { useCallback } from "react";
 
 export const useStepNavigation = () => {
   const { trigger } = useFormContext<Form>();
-  const { currentStepFields, setStep } = useMultiStepFormContext();
+  const { step, setStep } = useMultiStepFormContext();
+
+  const stepFields: Record<Step, (keyof Form)[]> = {
+    1: ["name", "address", "phone"],
+    2: ["plan", "billing"],
+    3: ["addOn"],
+    4: [],
+  };
 
   const handleNextStep = async () => {
-    const isValid = await trigger(currentStepFields);
+    const isValid = await trigger(stepFields[step]);
     if (isValid) nextStep();
   };
 
